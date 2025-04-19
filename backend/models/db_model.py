@@ -3,6 +3,15 @@ from sqlalchemy.orm import declarative_base
 from backend.database import Base
 from datetime import datetime
 
+class Campaign(Base):
+    __tablename__ = "campaigns"
+
+    id = Column(String, primary_key=True, index=True)
+    name = Column(String)
+    platform = Column(String)
+    status = Column(String)
+    budget = Column(Float)
+
 class AccessLog(Base):
     __tablename__ = "access_logs"
 

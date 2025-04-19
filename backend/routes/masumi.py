@@ -10,9 +10,9 @@ from backend.models.payment_model import (
     InitiatePaymentResponse
 )
 
-router = APIRouter()
+router = APIRouter(prefix="/api/masumi", tags=["Masumi"])
 
-@router.post("/api/verify-access", response_model=VerifyAccessResponse)
+@router.post("/verify-access", response_model=VerifyAccessResponse)
 async def verify_access(req: Request):
     """
     Verifies whether the given wallet owns the required NFT.
@@ -20,22 +20,22 @@ async def verify_access(req: Request):
     data = await req.json()
     wallet = data.get("wallet")
     collection = data.get("collection")
-    return verify_nft_ownership(wallet, collection)
+    return await verify_nft_ownership(wallet, collection)
 
-@router.post("/api/payment-status", response_model=PaymentStatusResponse)
+@router.post("/payment-status", response_model=PaymentStatusResponse)
 async def payment_status(req: Request):
     """
     Checks if the wallet has successfully completed the payment.
     """
     data = await req.json()
     wallet = data.get("wallet")
-    return check_payment_status(wallet)
+    return await check_payment_status(wallet)
 
-@router.post("/api/pay-to-unlock", response_model=InitiatePaymentResponse)
+@router.post("/pay-to-unlock", response_model=InitiatePaymentResponse)
 async def pay_to_unlock(req: Request):
     """
     Initiates a payment or minting process for the given wallet.
     """
     data = await req.json()
     wallet = data.get("wallet")
-    return initiate_payment(wallet)
+    return await initiate_payment(wallet)
