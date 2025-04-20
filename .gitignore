@@ -3,6 +3,10 @@
 .venv/
 venv/
 ENV/
+omnienv/
+credentials.json
+token.json
+settings.json
 
 # Python
 __pycache__/
